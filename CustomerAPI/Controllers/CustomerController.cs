@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerAPI.Data;
+using CustomerAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Models;
 
 namespace CustomerAPI.Controllers
 {
@@ -13,9 +13,9 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly ICustomerRepository repository;
+        private readonly IRepository<Customer> repository;
 
-        public CustomerController(ICustomerRepository repo)
+        public CustomerController(IRepository<Customer> repo)
         {
             repository = repo;
         }
@@ -52,7 +52,7 @@ namespace CustomerAPI.Controllers
             }
 
             var newCustomer = repository.Add(customer);
-            return CreatedAtRoute("GetCustomer", new { id = newCustomer.ID }, newCustomer);
+            return CreatedAtRoute("GetCustomer", new { id = newCustomer.customerId }, newCustomer);
         }
 
         // PUT a customer
