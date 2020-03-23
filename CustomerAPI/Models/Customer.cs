@@ -2,14 +2,14 @@
 namespace CustomerAPI.Models
 {
     public class Customer
-    { 
-        public int customerId { get; set; }
-        public string name { get; set; }
-        public string email { get; set; }
-        public int phone { get; set; }
-        public string billingAddress { get; set; }
-        public string shippingAddress { get; set; }
-        public string creditStanding { get; set; }
+    {
+        public int CustomerId { get; set; }
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+        public string BillingAddress { get; set; }
+        public string ShippingAddress { get; set; }
+        public bool CreditStanding { get; set; }
 
-    }   
+    }
 }

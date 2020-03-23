@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CustomerAPI.Data
+﻿namespace CustomerAPI.Data
 {
-    public class IDbInitializer
+    public interface IDbInitializer
     {
         void Initializer(CustomerAPIContext context);
     }

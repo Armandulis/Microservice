@@ -32,13 +32,13 @@ namespace CustomerAPI.Data
 
         public Customer Get(int id)
         {
-            return Db.Customers.FirstOrDefault(c => c.customerId == id);
+            return Db.Customers.FirstOrDefault(c => c.CustomerId == id);
         }
 
 
         public void Remove(int id)
         {
-            var cust = Db.Customers.FirstOrDefault(c => c.customerId == id);
+            var cust = Db.Customers.FirstOrDefault(c => c.CustomerId == id);
             Db.Customers.Remove(cust);
             Db.SaveChanges();
         }
@@ -48,6 +48,6 @@ namespace CustomerAPI.Data
         {
             return Db.Customers.ToList();
         }
-      
+
     }
 }
