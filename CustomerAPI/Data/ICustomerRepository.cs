@@ -1,4 +1,4 @@
-﻿using Models;
+﻿using CustomerAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CustomerAPI.Data
 {
-    public interface ICustomerRepository
+    public interface IRepository<T>
     {
-        IEnumerable<Customer> GetAll();
-        Customer Get(int id);
-        Customer Add(Customer entity);
-        void Edit(Customer entity);
+        IEnumerable<T> GetAll();
+        T Get(int id);
+        T Add(T entity);
+        void Edit(T entity);
         void Remove(int id);
     }
 }
