@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <DockerComposeProjectPath>../docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>9c7bf11e-99e9-4964-ae35-979abd94d0e2</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
@@ -18,5 +18,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Dockerfile" />
   </ItemGroup>
 </Project>
