@@ -18,6 +18,10 @@ namespace ProductApi
 {
     public class Startup
     {
+        // RabbitMQ connection string
+        string cloudAMQPConnectionString =
+           "host=macaw.rmq.cloudamqp.com;virtualHost=feucbiev;username=feucbiev;password=M6vR0J4GkImLWm5dQbRzAqxldhcQFk0F";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,6 +41,7 @@ namespace ProductApi
             // Register database initializer for dependency injection
             services.AddTransient<IDbInitializer, DbInitializer>();
 
+            // services.AddControllers(options => options.EnableEndpointRouting = false);
             services.AddControllers();
         }
 
@@ -53,12 +58,24 @@ namespace ProductApi
                 dbInitializer.Initialize(dbContext);
             }
 
+            //Create messagelistener in different thread set for messages
+            //Task.Factory.StartNew(() =>
+            //   new ListenToMessages(app.ApplicationServices, cloudAMQPConnectionString).Start());
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseHsts();
+            }
+
 
             app.UseHttpsRedirection();
+
+            // app.UseMvc(); set for messages
 
             app.UseRouting();
 

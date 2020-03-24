@@ -13,9 +13,9 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly IRepository<Customer> repository;
+        private readonly ICustomerRepository repository;
 
-        public CustomerController(IRepository<Customer> repo)
+        public CustomerController(ICustomerRepository repo)
         {
             repository = repo;
         }

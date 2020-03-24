@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace CustomerAPI.Data
 {
-    public interface IRepository<T>
+    public interface ICustomerRepository
     {
-        IEnumerable<T> GetAll();
-        T Get(int id);
-        T Add(T entity);
-        void Edit(T entity);
+        IEnumerable<Customer> GetAll();
+        Customer Get(int id);
+        Customer Add(Customer entity);
+        void Edit(Customer entity);
         void Remove(int id);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CustomerAPI.Data
 {
-    public class CustomerRepository : IRepository<Customer>
+    public class CustomerRepository : ICustomerRepository
     {
         private readonly CustomerAPIContext Db;
 
@@ -44,7 +44,7 @@ namespace CustomerAPI.Data
         }
 
 
-        IEnumerable<Customer> IRepository<Customer>.GetAll()
+        IEnumerable<Customer> ICustomerRepository.GetAll()
         {
             return Db.Customers.ToList();
         }

@@ -18,6 +18,12 @@ namespace OrderApi
 {
     public class Startup
     {
+        private Uri productServiceBaseUrl = new Uri("http://productapi/api/products/");
+
+        // RabbitMQ connection string
+        string cloudAMQPConnectionString =
+           "host=macaw.rmq.cloudamqp.com;virtualHost=feucbiev;username=feucbiev;password=M6vR0J4GkImLWm5dQbRzAqxldhcQFk0F";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -36,6 +42,18 @@ namespace OrderApi
 
             // Register database initializer for dependency injection
             services.AddTransient<IDbInitializer, DbInitializer>();
+
+            // Add for messageing
+            // Register product service gateway for dependency injection
+            //  services.AddSingleton<IServiceGateway<Product>>(new
+            //       ProductsServiceGateway(productServiceBaseUrl));
+            //
+            // Register MessagePublisher (a messaging gateway) for dependency injection
+            // services.AddSingleton<IMessagePublisher>(new
+            //     MessagePublisher(cloudAMQPConnectionString));
+
+            // services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
 
             services.AddControllers();
         }
