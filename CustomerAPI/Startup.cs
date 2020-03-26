@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerAPI.Data;
-using CustomerAPI.Models;
+using CustomerAPI.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -16,6 +16,10 @@ using Microsoft.Extensions.Logging;
 
 namespace CustomerAPI
 {
+    //https://localhost:44396/product
+    //https://localhost:44393/api/orders
+    //https://localhost:44380/Customers
+
     public class Startup
     {
         // RabbitMQ connection string
@@ -41,9 +45,8 @@ namespace CustomerAPI
             // Register database initializer for dependency injection.
             services.AddTransient<IDbInitializer, DbInitializer>();
 
-            services.AddControllers();
-            // Changed from .AddMcv.
-            //  services.AddControllers(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            //services.AddControllers();
+            services.AddControllers(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,8 +61,8 @@ namespace CustomerAPI
                 dbInitializer.Initializer(dbContext);
             }
             // Create a message listener in a separate thread.
-            // Task.Factory.StartNew(() =>
-            //    new ListentToMessages(app.ApplicationServices, cloudAMQPConnectionString).Start());
+            Task.Factory.StartNew(() =>
+               new MessageListener(app.ApplicationServices, cloudAMQPConnectionString).Start());
 
 
             if (env.IsDevelopment())

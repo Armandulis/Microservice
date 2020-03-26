@@ -1,5 +1,5 @@
-﻿using CustomerAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SharedModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,13 +32,13 @@ namespace CustomerAPI.Data
 
         public Customer Get(int id)
         {
-            return Db.Customers.FirstOrDefault(c => c.CustomerId == id);
+            return Db.Customers.FirstOrDefault(c => c.ID == id);
         }
 
 
         public void Remove(int id)
         {
-            var cust = Db.Customers.FirstOrDefault(c => c.CustomerId == id);
+            var cust = Db.Customers.FirstOrDefault(c => c.ID == id);
             Db.Customers.Remove(cust);
             Db.SaveChanges();
         }

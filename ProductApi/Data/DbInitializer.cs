@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using SharedModels;
+using System.Collections.Generic;
 using System.Linq;
-using ProductApi.Models;
 
 namespace ProductApi.Data
 {

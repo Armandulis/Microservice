@@ -12,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OrderApi.Data;
-using OrderApi.Models;
+using OrderApi.Infrastructure;
+using SharedModels;
 
 namespace OrderApi
 {
@@ -43,19 +44,17 @@ namespace OrderApi
             // Register database initializer for dependency injection
             services.AddTransient<IDbInitializer, DbInitializer>();
 
-            // Add for messageing
             // Register product service gateway for dependency injection
-            //  services.AddSingleton<IServiceGateway<Product>>(new
-            //       ProductsServiceGateway(productServiceBaseUrl));
-            //
-            // Register MessagePublisher (a messaging gateway) for dependency injection
-            // services.AddSingleton<IMessagePublisher>(new
-            //     MessagePublisher(cloudAMQPConnectionString));
+            services.AddSingleton<IServiceGateway<Product>>(new
+                ProductServiceGateway(productServiceBaseUrl));
 
-            // services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddSingleton<IMessagePublisher>(new
+                 MessagePublisher(cloudAMQPConnectionString));
+
+            services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 
-            services.AddControllers();
+            //services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

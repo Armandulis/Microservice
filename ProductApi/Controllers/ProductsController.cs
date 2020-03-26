@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using ProductApi.Data;
-using ProductApi.Models;
+using SharedModels;
 
 namespace ProductApi.Controllers
 {
@@ -10,7 +10,6 @@ namespace ProductApi.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly IRepository<Product> repository;
-
         public ProductsController(IRepository<Product> repos)
         {
             repository = repos;
@@ -24,7 +23,7 @@ namespace ProductApi.Controllers
         }
 
         // GET products/5
-        [HttpGet("{id}", Name="GetProduct")]
+        [Route("GetProduct/{id}", Name = "GetProduct")]
         public IActionResult Get(int id)
         {
             var item = repository.Get(id);

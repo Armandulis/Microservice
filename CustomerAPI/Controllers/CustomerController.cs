@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CustomerAPI.Data;
-using CustomerAPI.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SharedModels;
 
 namespace CustomerAPI.Controllers
 {
@@ -29,7 +29,7 @@ namespace CustomerAPI.Controllers
         }
 
         // GET single Customer/1
-        [Route("GetCustomer/{id}")]
+        [Route("GetCustomer/{id}", Name = "GetCustomer")]
         public IActionResult Get(int id)
         {
             // Get customer and if it's not null, return it as a response
@@ -52,7 +52,7 @@ namespace CustomerAPI.Controllers
             }
 
             var newCustomer = repository.Add(customer);
-            return CreatedAtRoute("GetCustomer", new { id = newCustomer.CustomerId }, newCustomer);
+            return CreatedAtRoute("GetCustomer", new { id = newCustomer.ID }, newCustomer);
         }
 
         // PUT a customer

@@ -12,7 +12,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using ProductApi.Data;
-using ProductApi.Models;
+using ProductApi.Infrastructure;
+using SharedModels;
 
 namespace ProductApi
 {
@@ -41,8 +42,8 @@ namespace ProductApi
             // Register database initializer for dependency injection
             services.AddTransient<IDbInitializer, DbInitializer>();
 
-            // services.AddControllers(options => options.EnableEndpointRouting = false);
-            services.AddControllers();
+            services.AddControllers(options => options.EnableEndpointRouting = false);
+            // services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,8 +60,8 @@ namespace ProductApi
             }
 
             //Create messagelistener in different thread set for messages
-            //Task.Factory.StartNew(() =>
-            //   new ListenToMessages(app.ApplicationServices, cloudAMQPConnectionString).Start());
+            Task.Factory.StartNew(() =>
+               new MessageListener(app.ApplicationServices, cloudAMQPConnectionString).Start());
 
 
             if (env.IsDevelopment())
@@ -75,16 +76,7 @@ namespace ProductApi
 
             app.UseHttpsRedirection();
 
-            // app.UseMvc(); set for messages
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseMvc(); //set for messages
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using CustomerAPI.Models;
+﻿using SharedModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

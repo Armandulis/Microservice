@@ -1,5 +1,5 @@
-﻿using CustomerAPI.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SharedModels;
 using DBContext = Microsoft.EntityFrameworkCore.DbContext;
 
 namespace CustomerAPI.Data

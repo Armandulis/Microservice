@@ -6,26 +6,18 @@ namespace SharedModels
 {
     public class Order
     {
+        public enum Status
+        {
+            Completed = 1,
+            Cancelled = 2,
+            Shipped = 3,
+            Paid = 4
+        };
         public int Id { get; set; }
         public DateTime? Date { get; set; }
-        public int? customerId { get; set; }
-        public OrderStatus Status { get; set; }
-        public IList<OrderLine> OrderLines { get; set; }
-
-        public enum OrderStatus
-        {
-            cancelled,
-            completed,
-            shipped,
-            paid
-        }
-    }
-
-    public class OrderLine
-    {
-        public int id { get; set; }
-        public int OrderId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public List<ProductDTO> Products { get; set; }
+        public int CustomerID { get; set; }
+        public Status StatusCode { get; set; }
+        public IEnumerable<OrderLine> OrderLines { get; set; }
     }
 }

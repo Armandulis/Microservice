@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using OrderApi.Models;
 using System;
+using SharedModels;
 
 namespace OrderApi.Data
 {
@@ -19,9 +19,25 @@ namespace OrderApi.Data
                 return;   // DB has been seeded
             }
 
+            List<ProductDTO> productsOne = new List<ProductDTO>
+            {
+                new ProductDTO { OrderId = 1, ProductId = 1, PriceForAll = 4, Quantity = 1}
+            };
+            List<ProductDTO> productsTwo = new List<ProductDTO>
+            {
+                new ProductDTO { OrderId = 2, ProductId = 2, PriceForAll = 4, Quantity = 2},
+                new ProductDTO { OrderId = 3, ProductId = 3, PriceForAll = 4, Quantity = 2}
+            };
+            List<ProductDTO> productsThree = new List<ProductDTO>
+            {
+                new ProductDTO { OrderId = 4, ProductId = 2, PriceForAll = 6, Quantity = 2},
+                new ProductDTO { OrderId = 5, ProductId = 3, PriceForAll = 7, Quantity = 2}
+            };
             List<Order> orders = new List<Order>
             {
-                new Order { Date = DateTime.Today, ProductId = 1, Quantity = 2 }
+                new Order { Date = DateTime.Today, CustomerID = 1, Products = productsOne},
+                new Order {Date = DateTime.Today, CustomerID = 2, Products = productsTwo},
+                new Order { Date = DateTime.Today, CustomerID = 1, Products = productsThree},
             };
 
             context.Orders.AddRange(orders);
