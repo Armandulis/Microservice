@@ -103,21 +103,29 @@ namespace OrderApi.Controllers
             {
                 return BadRequest();
             }
-            try
+            var customer = messagePublisher.RequestCustomer(order.CustomerID);
+            if (customer.CreditStanding)
             {
-                // Publish OrderStatusChangedMessage. If this operation
-                // fails, the order will not be created
-                messagePublisher.PublishOrderStatusChangedMessage(
-                  order.CustomerID, order.OrderLines, "completed");
+                try
+                {
+                    // Publish OrderStatusChangedMessage. If this operation
+                    // fails, the order will not be created
+                    messagePublisher.PublishOrderStatusChangedMessage(
+                      order.CustomerID, order.OrderLines, "completed");
 
-                // Create order.
-                order.StatusCode = Order.Status.Completed;
-                //var newOrder = repository.Add(order);
-                return CreatedAtRoute("getById", new { id = order.Id }, order);
+                    // Create order.
+                    order.StatusCode = Order.Status.Completed;
+                    //var newOrder = repository.Add(order);
+                    return CreatedAtRoute("getById", new { id = order.Id }, order);
+                }
+                catch
+                {
+                    return StatusCode(500, "Please try again an error occured.");
+                }
             }
-            catch
+            else
             {
-                return StatusCode(500, "Please try again an error occured.");
+                return StatusCode(500, "Customer has insufficient resources to purchase products");
             }
 
         }
