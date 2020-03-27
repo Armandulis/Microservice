@@ -10,9 +10,9 @@ namespace OrderApi.Infrastructure
     public class MessagePublisher : IMessagePublisher, IDisposable
     {
         IBus bus;
-        public MessagePublisher(string connectionString)
+        public MessagePublisher(string cloudAMQPConnectionString)
         {
-            bus = RabbitHutch.CreateBus(connectionString);
+            bus = RabbitHutch.CreateBus(cloudAMQPConnectionString);
         }
         public void Dispose()
         {
@@ -31,7 +31,7 @@ namespace OrderApi.Infrastructure
         Customer IMessagePublisher.RequestCustomer(int id)
         {
             var cr = new CustomerRequest { ID = id };
-            var response = bus.Request<CustomerRequest, SharedModels.Customer>(cr);
+            var response = bus.Request<CustomerRequest, Customer>(cr);
             return response;
         }
     }
