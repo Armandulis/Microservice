@@ -1,39 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Arman\\Desktop\\Microservice\\ProductApi\\ProductApi.csproj": {}
+    "/Users/emil/Documents/GitHub/Microservice/ProductApi/ProductApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Arman\\Desktop\\Microservice\\ProductApi\\ProductApi.csproj": {
+    "/Users/emil/Documents/GitHub/Microservice/ProductApi/ProductApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Arman\\Desktop\\Microservice\\ProductApi\\ProductApi.csproj",
+        "projectUniqueName": "/Users/emil/Documents/GitHub/Microservice/ProductApi/ProductApi.csproj",
         "projectName": "ProductApi",
-        "projectPath": "C:\\Users\\Arman\\Desktop\\Microservice\\ProductApi\\ProductApi.csproj",
-        "packagesPath": "C:\\Users\\Arman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arman\\Desktop\\Microservice\\ProductApi\\obj\\",
+        "projectPath": "/Users/emil/Documents/GitHub/Microservice/ProductApi/ProductApi.csproj",
+        "packagesPath": "/Users/emil/.nuget/packages/",
+        "outputPath": "/Users/emil/Documents/GitHub/Microservice/ProductApi/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Arman\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "/Users/emil/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "projectReferences": {
-              "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\SharedModels.csproj": {
-                "projectPath": "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\SharedModels.csproj"
-              }
-            }
+            "projectReferences": {}
           }
         },
         "warningProperties": {
@@ -80,62 +74,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\SharedModels.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\SharedModels.csproj",
-        "projectName": "SharedModels",
-        "projectPath": "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\SharedModels.csproj",
-        "packagesPath": "C:\\Users\\Arman\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Arman\\Desktop\\Microservice\\SharedModels\\obj\\",
-        "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
-        "configFilePaths": [
-          "C:\\Users\\Arman\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
         }
       }
     }

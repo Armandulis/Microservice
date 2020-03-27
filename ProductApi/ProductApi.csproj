@@ -17,9 +17,9 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SharedModels\SharedModels.csproj" />
+    <None Remove="Dockerfile" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Dockerfile" />
+    <Folder Include="Models\" />
   </ItemGroup>
 </Project>

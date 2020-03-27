@@ -33,7 +33,7 @@ namespace OrderApi.Controllers
             return repository.GetAll();
         }
 
-        // GET api/products/5
+        // GET api/orders/5
         [HttpGet]
         [Route("getById/{id}")]
         public IActionResult Get(int id)
@@ -92,7 +92,7 @@ namespace OrderApi.Controllers
             {
                 return BadRequest(ex.InnerException != null ? ex.Message + ex.InnerException : ex.Message);
             }
-        }/*
+        }
 
         [HttpPost]
         [Route("GetThroughBus")]
@@ -128,64 +128,9 @@ namespace OrderApi.Controllers
                 return StatusCode(500, "Item is out of stock.");
             }
         }
-*/
-        // POST api/orders
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Order order)
-        {
-            try
-            {
-                if (order == null)
-                {
-                    return BadRequest();
-                }
 
-                // Call ProductApi to get the product ordered
-                RestClient c = new RestClient();
 
-                // Get customer via http GET call.
-                // Check customer standing here
-                //c.BaseUrl = new Uri("https://localhost:44318/customers/");
-                //var requestCustomer = new RestRequest(order.CustomerID.ToString(), Method.GET);
-                //var responseCustomer = c.Execute<SharedModels.Customer>(requestCustomer);
-                //var customer = responseCustomer.Data;
-
-                // Get customer via rabbitmq request.
-                var customer = messagePublisher.RequestCustomer(order.CustomerID);
-
-                if (customer == null)
-                {
-                    return BadRequest("Customer could not be found");
-                }
-
-                if (customer.CreditStanding)
-                {
-                    var areProductsAvailable = await CheckIfProductsAreInStock(order.Products);
-                    if (areProductsAvailable == "true")
-                    {
-                        var wasSuccesfull = await addItemsToReserved(order.Products);
-                        order.StatusCode = Order.Status.Shipped;
-                        repository.Add(order);
-
-                        return Ok();
-                    }
-                    else
-                    {
-                        return BadRequest("Not enough items in stock");
-                    }
-                }
-                else
-                {
-                    return BadRequest("Customer does not have resources to make a purchase");
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException != null ? ex.Message + ex.InnerException : ex.Message);
-            }
-        }
-
-        private bool ProductItemsAvailable(SharedModels.Order order)
+        private bool ProductItemsAvailable(Order order)
         {
             foreach (var orderLine in order.OrderLines)
             {
@@ -197,25 +142,6 @@ namespace OrderApi.Controllers
                 }
             }
             return true;
-        }
-
-        private async Task<String> CheckIfProductsAreInStock(IEnumerable<ProductDTO> listOfProducts)
-        {
-            var json = JsonConvert.SerializeObject(listOfProducts);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = "https://localhost:44384/api/products/CheckIfInStock";
-            HttpClient client = new HttpClient();
-            var response = await client.PutAsync(url, data);
-            return response.Content.ReadAsStringAsync().Result;
-        }
-        private async Task<String> addItemsToReserved(IEnumerable<ProductDTO> listOfProducts)
-        {
-            var json = JsonConvert.SerializeObject(listOfProducts);
-            var data = new StringContent(json, Encoding.UTF8, "application/json");
-            var url = "https://localhost:44384/api/products/ReserveProducts";
-            HttpClient client = new HttpClient();
-            var response = await client.PutAsync(url, data);
-            return response.Content.ReadAsStringAsync().Result;
         }
 
     }
