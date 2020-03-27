@@ -17,7 +17,7 @@ namespace OrderApi.Infrastructure
         public Product Get(int ID)
         {
             RestClient c = new RestClient();
-            c.BaseUrl = productServiceBaseUrl;
+            c.BaseUrl = new Uri("https://localhost:44396/products/GetProduct/" + ID);
 
             var request = new RestRequest(ID.ToString(), Method.GET);
             var response = c.Execute<Product>(request);

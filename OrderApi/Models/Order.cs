@@ -18,6 +18,6 @@ namespace SharedModels
         public List<ProductDTO> Products { get; set; }
         public int CustomerID { get; set; }
         public Status StatusCode { get; set; }
-        public IEnumerable<OrderLine> OrderLines { get; set; }
+        public OrderLine[] OrderLines { get; set; }
     }
 }

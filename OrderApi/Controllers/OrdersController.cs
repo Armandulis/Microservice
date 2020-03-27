@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,7 +36,7 @@ namespace OrderApi.Controllers
 
         // GET api/orders/5
         [HttpGet]
-        [Route("getById/{id}")]
+        [Route("getById/{id}", Name = "getById")]
         public IActionResult Get(int id)
         {
             var item = repository.Get(id);
@@ -47,7 +48,7 @@ namespace OrderApi.Controllers
         }
 
         [HttpGet]
-        [Route("getByCustomerId/{customerId}")]
+        [Route("getByCustomerId/{customerId}", Name = "getByCustomerId")]
         public IEnumerable<Order> GetOrderById(int customerId)
         {
             return repository.GetAllByCustomer(customerId);
@@ -76,7 +77,7 @@ namespace OrderApi.Controllers
             {
                 Order selectedOrder = repository.Get(orderId);
 
-                if (selectedOrder.StatusCode == Order.Status.Shipped)
+                if (selectedOrder.StatusCode != Order.Status.Shipped)
                 {
                     selectedOrder.StatusCode = Order.Status.Cancelled;
                     repository.Edit(selectedOrder);
@@ -102,31 +103,23 @@ namespace OrderApi.Controllers
             {
                 return BadRequest();
             }
-
-            if (ProductItemsAvailable(order))
+            try
             {
-                try
-                {
-                    // Publish OrderStatusChangedMessage. If this operation
-                    // fails, the order will not be created
-                    messagePublisher.PublishOrderStatusChangedMessage(
-                      order.CustomerID, order.OrderLines, "completed");
+                // Publish OrderStatusChangedMessage. If this operation
+                // fails, the order will not be created
+                messagePublisher.PublishOrderStatusChangedMessage(
+                  order.CustomerID, order.OrderLines, "completed");
 
-                    // Create order.
-                    order.StatusCode = Order.Status.Completed;
-                    //var newOrder = repository.Add(order);
-                    return CreatedAtRoute("GetOrder", new { id = order.Id }, order);
-                }
-                catch
-                {
-                    return StatusCode(500, "Please try again an error occured.");
-                }
+                // Create order.
+                order.StatusCode = Order.Status.Completed;
+                //var newOrder = repository.Add(order);
+                return CreatedAtRoute("getById", new { id = order.Id }, order);
             }
-            else
+            catch
             {
-                // If there are not enough product items available.
-                return StatusCode(500, "Item is out of stock.");
+                return StatusCode(500, "Please try again an error occured.");
             }
+
         }
 
 
