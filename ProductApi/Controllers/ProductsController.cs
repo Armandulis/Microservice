@@ -23,7 +23,7 @@ namespace ProductApi.Controllers
         }
 
         // GET products/5
-        [Route("GetProduct/{id}", Name = "GetProduct")]
+        [Route("{id}")]
         public IActionResult Get(int id)
         {
             var item = repository.Get(id);
