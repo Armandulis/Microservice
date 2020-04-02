@@ -19,7 +19,7 @@ namespace OrderApi
 {
     public class Startup
     {
-        private Uri productServiceBaseUrl = new Uri("http://productapi/api/products/");
+        private Uri productServiceBaseUrl = new Uri("http://productapi/products/");
 
         // RabbitMQ connection string
         string cloudAMQPConnectionString =

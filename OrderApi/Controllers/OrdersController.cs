@@ -96,16 +96,15 @@ namespace OrderApi.Controllers
         }
 
         [HttpPost]
-        [Route("GetThroughBus")]
         public IActionResult Post([FromBody]Order order)
         {
             if (order == null)
             {
                 return BadRequest();
             }
-            var customer = messagePublisher.RequestCustomer(order.CustomerID);
-            if (customer.CreditStanding)
-            {
+
+            
+           if(ProductItemsAvailable(order))
                 try
                 {
                     // Publish OrderStatusChangedMessage. If this operation
@@ -122,10 +121,9 @@ namespace OrderApi.Controllers
                 {
                     return StatusCode(500, "Please try again an error occured.");
                 }
-            }
             else
             {
-                return StatusCode(500, "Customer has insufficient resources to purchase products");
+                return StatusCode(500, "Item is out of stock.");
             }
 
         }

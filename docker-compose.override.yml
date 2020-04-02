@@ -19,5 +19,5 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
     ports:
-      - "0:80"
+      - "32770:80"
   
